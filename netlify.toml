@@ -1,12 +1,5 @@
-[build]
-  functions = "netlify/functions"
-  command = "npm install"
-
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[functions]
-  node_bundler = "esbuild"
-  included_files = ["netlify/functions/**"]
+  from = "/*"
+  to = "https://pick-a-side-today.vercel.app/:splat"
+  status = 301
+  force = true

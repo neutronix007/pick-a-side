@@ -3142,13 +3142,26 @@
 
     async function captureCard(scale = 3) {
       const card = document.getElementById('idCard');
-      return html2canvas(card, {
-        scale,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: null,
-        logging: false,
-      });
+
+      // Clone card directly onto body — html2canvas fails on desktop when
+      // the element is inside a position:fixed overlay
+      const clone = card.cloneNode(true);
+      clone.style.cssText = 'position:fixed;top:0;left:0;z-index:-9999;width:' + card.offsetWidth + 'px;margin:0;pointer-events:none;';
+      document.body.appendChild(clone);
+
+      try {
+        return await html2canvas(clone, {
+          scale,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false,
+          scrollX: 0,
+          scrollY: 0,
+        });
+      } finally {
+        document.body.removeChild(clone);
+      }
     }
 
     async function shareOrDownload(canvas, filename) {
@@ -3269,7 +3282,6 @@
 
     document.getElementById('btnGenerateShare').addEventListener('click', async () => {
       document.getElementById('shareModal').classList.remove('open');
-      await new Promise(r => setTimeout(r, 320)); // wait for modal fade + backdrop-filter to clear
       const btn = document.getElementById('btnGenerateShare');
       const originalText = btn.textContent;
       btn.textContent = 'Generating…';

@@ -1,0 +1,3349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pick a Side — Get Your Mexican Name</title>
+
+  <!-- OG / Social meta -->
+  <meta name="description" content="Africa is united. South Africa vs Mexico — FIFA World Cup 2026. Get your official Mexican name and show the world which side Africa is on." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://pick-a-side.netlify.app/" />
+  <meta property="og:title"       content="Pick A Side 🌍 — Get Your Mexican Name" />
+  <meta property="og:description" content="Africa is united. Get your official Mexican name, download your card, and post it everywhere. Africa backs México. FIFA World Cup 2026." />
+  <meta property="og:image"       content="https://pick-a-side.netlify.app/images/og-banner.webp" />
+  <meta property="og:image:width"  content="2048" />
+  <meta property="og:image:height" content="1152" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Pick A Side 🌍 — Get Your Mexican Name" />
+  <meta name="twitter:description" content="Africa is united. Get your Mexican name and show the world. Africa backs México. FIFA World Cup 2026." />
+  <meta name="twitter:image"       content="https://pick-a-side.netlify.app/images/og-banner.webp" />
+  <meta name="theme-color" content="#006847" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mx-green:  #006847;
+      --mx-green-light: #00875f;
+      --mx-red:    #CE1126;
+      --mx-gold:   #FFD700;
+      --mx-gold-muted: #c9a84c;
+      --white:     #ffffff;
+      --off-white: #f5f2ec;
+      --dark:      #0a0a0a;
+      --dark-2:    #111111;
+      --dark-3:    #1a1a1a;
+      --text-muted: #999;
+      --radius-card: 24px;
+      --radius-pill: 999px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(0px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--mx-green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-logo-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo-text span {
+      color: var(--mx-gold);
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .nav-pill-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--mx-gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ── COUNTRY TEXT BADGES (replaces all flag emojis) ── */
+    .flag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 3px 6px;
+      border-radius: 5px;
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .flag-za { background: #007A4D; color: #fff; }
+    .flag-sa { background: #007A4D; color: #fff; }
+    .flag-mx { background: #006847; color: #fff; }
+    .flag-sm  { font-size: 9px; padding: 2px 5px; border-radius: 4px; }
+    .flag-xs  { font-size: 8px; padding: 2px 4px; border-radius: 3px; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background gradient layers */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,104,71,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(206,17,38,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 70%, rgba(255,215,0,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Subtle grid texture */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    /* Event badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mx-gold);
+      margin-bottom: 36px;
+    }
+
+    .hero-badge-flags {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    /* Main headline */
+    .hero-headline {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(52px, 10vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .hero-headline .line-green {
+      color: var(--mx-green-light);
+      display: block;
+    }
+
+    .hero-headline .line-gold {
+      color: var(--mx-gold);
+      display: block;
+    }
+
+    /* Sub-headline */
+    .hero-sub {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(20px, 4vw, 32px);
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Body copy */
+    .hero-body {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      margin-bottom: 52px;
+    }
+
+    /* CTA group */
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: var(--mx-green);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      border: none;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 0 0 rgba(0,104,71,0.4);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--mx-green-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,104,71,0.5);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 28px;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--white);
+    }
+
+    .btn-icon {
+      font-size: 16px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── STATS STRIP ── */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-number {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── FLOATING PREVIEW CARDS ── */
+    .hero-cards {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* shared float animation */
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0px) rotate(var(--tilt,0deg)); }
+      50%       { transform: translateY(-14px) rotate(var(--tilt,0deg)); }
+    }
+
+    /* Constrain hero-cards to a centred max-width so cards don't hang at viewport edges */
+    .hero-cards {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(100vw, 1280px);
+      pointer-events: none;
+    }
+
+    .float-card-wrap {
+      position: absolute;
+      animation: floatY 6s ease-in-out infinite;
+    }
+    .float-card-wrap:nth-child(1) { top: 16%; left: 1%;   opacity: 0.85; --tilt: -2deg; animation-duration: 6.5s; }
+    .float-card-wrap:nth-child(2) { top: 54%; left: 0.5%; opacity: 0.6;  --tilt:  1deg; animation-duration: 7.2s; animation-delay: -1.8s; }
+    .float-card-wrap:nth-child(3) { top: 16%; right: 1%;  opacity: 0.85; --tilt:  2deg; animation-duration: 5.8s; animation-delay: -3.5s; }
+    .float-card-wrap:nth-child(4) { top: 54%; right: 0.5%; opacity: 0.6; --tilt: -1deg; animation-duration: 6.8s; animation-delay: -5s; }
+    /* Desktop card width */
+    .float-card-wrap .fc-sport { width: 172px; }
+
+    /* ── CARD VARIANT A — Dark glass profile ── */
+    .fc-a {
+      width: 178px;
+      background: rgba(20,20,20,0.92);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(24px);
+    }
+    .fc-a-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #0d2b1f 0%, #1a1a1a 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      overflow: hidden;
+    }
+    .fc-a-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .fc-a-photo-badge {
+      position: absolute;
+      bottom: 8px; right: 8px;
+      background: var(--mx-green);
+      border: 2px solid rgba(20,20,20,0.9);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+    }
+    .fc-a-body { padding: 12px 12px 10px; }
+    .fc-a-name {
+      font-size: 12px; font-weight: 700;
+      color: var(--white); line-height: 1.25;
+      margin-bottom: 3px;
+    }
+    .fc-a-name-row {
+      display: flex; align-items: center; gap: 4px; margin-bottom: 3px;
+    }
+    .fc-a-check {
+      width: 14px; height: 14px;
+      background: var(--mx-green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; flex-shrink: 0;
+    }
+    .fc-a-sub {
+      font-size: 9px; color: rgba(255,255,255,0.4);
+      margin-bottom: 10px; line-height: 1.4;
+    }
+    .fc-a-stats {
+      display: flex; align-items: center;
+      gap: 0; border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 8px; margin-bottom: 8px;
+    }
+    .fc-a-stat {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; gap: 1px;
+    }
+    .fc-a-stat + .fc-a-stat {
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+    .fc-a-stat-n { font-size: 11px; font-weight: 800; color: var(--white); line-height: 1; }
+    .fc-a-stat-l { font-size: 8px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; }
+    .fc-a-btn {
+      width: 100%;
+      padding: 6px 0;
+      background: var(--mx-green);
+      border: none; border-radius: 8px;
+      font-size: 10px; font-weight: 700;
+      color: var(--white); cursor: default;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+
+    /* ── CARD VARIANT B — Light minimal ── */
+    .fc-b {
+      width: 178px;
+      background: #f0ede8;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .fc-b-photo {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, #c8e6d0 0%, #e8f4ec 100%);
+      position: relative;
+      display: flex; align-items: center; justify-content: center; font-size: 52px;
+      overflow: hidden;
+    }
+    .fc-b-photo img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .fc-b-body { padding: 12px 12px 10px; }
+    .fc-b-name-row { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; }
+    .fc-b-name { font-size: 12px; font-weight: 800; color: #111; line-height: 1.2; }
+    .fc-b-check {
+      width: 14px; height: 14px; background: var(--mx-green);
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; font-size: 8px; flex-shrink: 0;
+    }
+    .fc-b-sub { font-size: 9px; color: #888; margin-bottom: 10px; line-height: 1.4; }
+    .fc-b-stats {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .fc-b-stat { display: flex; align-items: center; gap: 3px; }
+    .fc-b-stat-n { font-size: 11px; font-weight: 700; color: #222; }
+    .fc-b-stat-l { font-size: 9px; color: #aaa; }
+    .fc-b-btn {
+      width: 100%; padding: 7px 0;
+      background: #111; border: none; border-radius: 10px;
+      font-size: 10px; font-weight: 700; color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      cursor: default;
+    }
+
+    /* ── CARD VARIANT C — Full-bleed gradient ── */
+    .fc-c {
+      width: 178px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .fc-c-photo {
+      width: 100%; aspect-ratio: 0.75;
+      background: linear-gradient(160deg, #003d29 0%, #0a0a0a 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px; position: relative; overflow: hidden;
+    }
+    .fc-c-photo img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .fc-c-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 45%, transparent 70%);
+    }
+    .fc-c-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 12px;
+    }
+    .fc-c-tag {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 7px;
+      background: rgba(0,104,71,0.7);
+      border: 1px solid rgba(0,104,71,0.9);
+      border-radius: 99px;
+      font-size: 8px; font-weight: 700;
+      color: rgba(255,255,255,0.9); letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .fc-c-name {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 15px; font-weight: 400;
+      color: var(--white); line-height: 1.2; margin-bottom: 2px;
+    }
+    .fc-c-surname {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 8px;
+    }
+    .fc-c-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .fc-c-apodo {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 3px 8px;
+      background: rgba(206,17,38,0.25); border: 1px solid rgba(206,17,38,0.4);
+      border-radius: 99px; font-size: 8px; font-weight: 700; color: #ff8090;
+    }
+    .fc-c-flag {
+      font-size: 14px; letter-spacing: 1px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    }
+
+    /* ══════════════════════════════════════════
+       SPORTS CARD — 4 colour variants
+       ══════════════════════════════════════════ */
+    .fc-sport {
+      width: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      flex-shrink: 0;
+    }
+
+    /* Full-bleed photo area */
+    .fc-sport-photo {
+      width: 100%;
+      aspect-ratio: 0.68;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      overflow: hidden;
+    }
+
+    .fc-sport-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Gradient overlay */
+    .fc-sport-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* ── Dark variant ── */
+    .fc-sport-dark .fc-sport-photo { background: #0a0a0a; }
+    .fc-sport-dark .fc-sport-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.1) 35%,
+        rgba(0,0,0,0.75) 65%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+    .fc-sport-dark { --accent: #00d46a; --text: #ffffff; --sub: rgba(255,255,255,0.55); --pill-bg: rgba(0,212,106,0.18); --pill-border: rgba(0,212,106,0.5); --pill-text: #00d46a; --divider: rgba(255,255,255,0.1); }
+
+    /* ── White variant ── */
+    .fc-sport-white .fc-sport-photo { background: #e8e8e8; }
+    .fc-sport-white .fc-sport-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.05) 0%,
+        rgba(240,240,240,0.1) 40%,
+        rgba(15,15,15,0.82) 70%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+    .fc-sport-white { --accent: #00d46a; --text: #ffffff; --sub: rgba(255,255,255,0.6); --pill-bg: rgba(255,255,255,0.15); --pill-border: rgba(255,255,255,0.4); --pill-text: #ffffff; --divider: rgba(255,255,255,0.12); }
+
+    /* ── Gold variant ── */
+    .fc-sport-gold .fc-sport-photo { background: #1a1400; }
+    .fc-sport-gold .fc-sport-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,196,0,0.08) 0%,
+        rgba(0,0,0,0.1) 35%,
+        rgba(20,12,0,0.82) 65%,
+        rgba(10,8,0,0.97) 100%
+      );
+    }
+    .fc-sport-gold { --accent: #FFD700; --text: #ffffff; --sub: rgba(255,255,255,0.55); --pill-bg: rgba(255,215,0,0.15); --pill-border: rgba(255,215,0,0.45); --pill-text: #FFD700; --divider: rgba(255,215,0,0.15); }
+
+    /* ── Green variant ── */
+    .fc-sport-green .fc-sport-photo { background: #001f12; }
+    .fc-sport-green .fc-sport-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,60,30,0.2) 0%,
+        rgba(0,40,20,0.15) 35%,
+        rgba(0,30,15,0.85) 65%,
+        rgba(0,20,10,0.97) 100%
+      );
+    }
+    .fc-sport-green { --accent: #FFD700; --text: #ffffff; --sub: rgba(255,255,255,0.55); --pill-bg: rgba(0,104,71,0.4); --pill-border: rgba(0,200,120,0.4); --pill-text: #00d46a; --divider: rgba(255,255,255,0.1); }
+
+    /* ── Top row: pill + circular flag badge ── */
+    .fc-sport-top {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .fc-sport-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 99px;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pill-text);
+      backdrop-filter: blur(8px);
+      line-height: 1;
+    }
+
+    /* Circular Mexican flag badge */
+    .fc-mx-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid rgba(255,255,255,0.35);
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .fc-mx-badge-stripes {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .fc-mx-badge-stripes span {
+      flex: 1;
+    }
+
+    .fc-mx-badge-stripes span:nth-child(1) { background: #006847; }
+    .fc-mx-badge-stripes span:nth-child(2) { background: #ffffff; }
+    .fc-mx-badge-stripes span:nth-child(3) { background: #CE1126; }
+
+    .fc-mx-badge-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+    }
+
+    .fc-mx-badge-label span:first-child {
+      font-size: 10px;
+      font-weight: 900;
+      color: #000;
+      text-shadow: 0 0 4px rgba(255,255,255,0.8);
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+
+    .fc-mx-badge-stars {
+      display: flex;
+      gap: 1px;
+    }
+
+    .fc-mx-badge-stars span {
+      font-size: 5px;
+      line-height: 1;
+      color: rgba(0,0,0,0.6);
+    }
+
+    /* ── Content overlay at bottom ── */
+    .fc-sport-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 12px 12px;
+      z-index: 2;
+    }
+
+    .fc-sport-name {
+      font-family: 'Barlow Condensed', 'Inter', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 28px;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .fc-sport-name .name-accent {
+      color: var(--accent);
+      display: block;
+    }
+
+    .fc-sport-nick {
+      font-size: 11px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--sub);
+      margin-bottom: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .fc-sport-divider {
+      height: 1px;
+      background: var(--divider);
+      margin-bottom: 8px;
+    }
+
+    .fc-sport-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fc-sport-footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .fc-sport-footer-line1 {
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .fc-sport-footer-line2 {
+      font-size: 7px;
+      color: var(--sub);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .fc-sport-vs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 7px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 99px;
+      font-size: 8px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+
+    /* keep old selectors that might be referenced — unused but harmless */
+    .float-card-sub {
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .float-card-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 8px;
+      background: rgba(0,104,71,0.25);
+      border: 1px solid rgba(0,104,71,0.4);
+      border-radius: var(--radius-pill);
+      font-size: 9px;
+      font-weight: 600;
+      color: #4caf80;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section-how {
+      padding: 100px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mx-gold);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(32px, 5vw, 52px);
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 64px;
+      line-height: 1.1;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .step-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-card);
+      padding: 32px 28px;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .step-card:hover {
+      border-color: rgba(0,104,71,0.4);
+      transform: translateY(-4px);
+    }
+
+    .step-number {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 56px;
+      color: rgba(255,255,255,0.04);
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0,104,71,0.15);
+      border: 1px solid rgba(0,104,71,0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── DIVIDER BAND ── */
+    .band {
+      background: var(--mx-green);
+      padding: 20px 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .band-track {
+      display: flex;
+      gap: 40px;
+      width: max-content;
+      animation: marquee 18s linear infinite;
+    }
+
+    .band-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .band-dot {
+      width: 5px;
+      height: 5px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-flags {
+      font-size: 20px;
+      letter-spacing: 4px;
+    }
+
+    /* ── RESPONSIVE ── */
+    /* ── MOBILE CARD STRIP ── */
+    .mobile-card-strip {
+      display: none;
+    }
+
+    .card-strip-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 28px;
+    }
+
+    .card-strip-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-strip-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .strip-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      transition: background 0.3s;
+    }
+
+    .strip-dot.active { background: var(--mx-green); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+
+      /* Hide floating desktop cards */
+      .float-card-wrap { display: none; }
+
+      /* Hide nav pill — match banner handles this info */
+      .nav-pill { display: none; }
+
+      /* Tighten hero padding — set overflow visible on mobile (floating cards hidden, so clipping not needed) */
+      .hero { padding: 100px 20px 40px; overflow: visible; }
+      .hero-stats {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+      }
+      .stat { align-items: center; }
+      .stat-divider { display: none; }
+      /* Scoreboard section */
+      .section-how { text-align: center; }
+      .steps-grid { text-align: left; }
+      .section-how { padding: 64px 20px; }
+
+      /* Show mobile card strip wrapper */
+      .card-strip-wrap { display: flex; }
+
+      /* Auto-sliding strip — no scroll needed */
+      .mobile-card-strip {
+        display: flex;
+        gap: 14px;
+        padding: 0 0 8px;
+        width: max-content;
+        animation: autoSlide 16s linear infinite;
+      }
+
+      @keyframes autoSlide {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(calc(-170px * 4 - 14px * 4)); }
+      }
+
+      /* Pause on hover (desktop) */
+      .card-strip-wrap:hover .mobile-card-strip { animation-play-state: paused; }
+
+      /* Cards all same uniform size */
+      .mobile-card-strip .fc-sport {
+        width: 170px !important;
+        flex-shrink: 0;
+      }
+      .mobile-card-strip .fc-sport-photo {
+        aspect-ratio: 0.72;
+        height: auto;
+        width: 100%;
+      }
+
+      /* Scoreboard centering */
+      .scoreboard-section { padding: 40px 16px; }
+      .match-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+      }
+      .match-row-teams {
+        justify-content: center;
+      }
+      .match-row-meta {
+        align-items: center;
+      }
+
+      /* Match banner tighter on mobile */
+      .match-banner {
+        top: 64px;
+        width: calc(100% - 16px);
+        border-radius: 10px;
+      }
+      .match-banner-inner {
+        padding: 8px 12px;
+        gap: 8px;
+        justify-content: center;
+      }
+      .match-meta { display: none; }
+      .match-divider { display: none; }
+      .countdown-unit { min-width: 28px; padding: 3px 5px; }
+      .countdown-num { font-size: 12px; }
+      .countdown-label { font-size: 7px; }
+    }
+
+    /* ── MATCH BANNER ── */
+    .match-banner {
+      position: fixed;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      width: calc(100% - 48px);
+      max-width: 680px;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .match-banner.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .match-banner-inner {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      gap: 12px;
+    }
+
+    .match-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .match-status-dot.upcoming { background: var(--mx-gold); animation: pulse 2s infinite; }
+    .match-status-dot.live { background: #ef4444; animation: pulse 1s infinite; }
+    .match-status-dot.finished { background: #555; }
+
+    .match-teams {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .match-team {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .match-team-flag {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
+    .match-team-name { font-size: 12px; font-weight: 600; line-height: 1; }
+
+    .match-vs {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 3px 7px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .match-score {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    .match-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .match-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .match-meta-top {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .match-meta-bottom {
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .match-countdown {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 4px 7px;
+      min-width: 34px;
+    }
+
+    .countdown-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
+      font-size: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .match-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      font-weight: 700;
+      color: #ef4444;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+
+    .match-live-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: pulse 1s infinite;
+    }
+
+    /* nudge hero down so banner doesn't overlap */
+    .hero { padding-top: 130px; }
+
+    @media (max-width: 600px) {
+      .match-banner {
+        top: 68px;
+        width: calc(100% - 24px);
+        border-radius: 12px;
+      }
+      .match-team-name { display: none; }
+      .match-meta { display: none; }
+      .match-divider { display: none; }
+    }
+
+    /* ── GENERATE OVERLAY ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .overlay.open {
+      transform: translateY(0);
+    }
+
+    .overlay-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--dark);
+      z-index: 10;
+    }
+
+    .overlay-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .overlay-logo span { color: var(--mx-gold); }
+
+    .overlay-close {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .overlay-close:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    /* Step progress */
+    .step-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 28px 24px 0;
+    }
+
+    .step-pip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-pip-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .step-pip.active .step-pip-dot {
+      border-color: var(--mx-green);
+      background: var(--mx-green);
+      color: var(--white);
+    }
+
+    .step-pip.done .step-pip-dot {
+      border-color: var(--mx-green);
+      background: rgba(0,104,71,0.2);
+      color: var(--mx-green-light);
+    }
+
+    .step-pip-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .step-pip.active .step-pip-label { color: var(--white); }
+
+    .step-connector {
+      width: 48px;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      margin: 0 8px;
+      margin-bottom: 22px;
+      transition: background 0.3s;
+    }
+
+    .step-connector.done { background: var(--mx-green); }
+
+    /* Step panels */
+    .step-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 24px 60px;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .step-panel.active { display: flex; }
+
+    .step-heading {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(28px, 6vw, 42px);
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .step-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* ── STEP 1: UPLOAD ── */
+    .upload-zone {
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 1;
+      border: 2px dashed rgba(255,255,255,0.12);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--mx-green);
+      background: rgba(0,104,71,0.06);
+    }
+
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .upload-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .upload-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .upload-preview {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      display: none;
+      border-radius: 22px;
+    }
+
+    .upload-preview.visible { display: block; }
+
+    /* upload action buttons */
+    .upload-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+      margin-top: 14px;
+    }
+
+    .upload-opt-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      line-height: 1;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-opt-btn input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-opt-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--white);
+    }
+
+    .upload-opt-secondary {
+      background: rgba(0,104,71,0.1);
+      border-color: rgba(0,104,71,0.3);
+      color: #4caf80;
+    }
+
+    .upload-opt-secondary:hover {
+      background: rgba(0,104,71,0.2);
+      border-color: rgba(0,104,71,0.5);
+    }
+
+    .upload-opt-danger {
+      background: rgba(206,17,38,0.1);
+      border-color: rgba(206,17,38,0.25);
+      color: #ff6b7a;
+    }
+
+    .upload-opt-danger:hover {
+      background: rgba(206,17,38,0.2);
+      border-color: rgba(206,17,38,0.4);
+    }
+
+    /* ── STEP 2: GENDER ── */
+    .gender-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .gender-card {
+      aspect-ratio: 0.8;
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: var(--dark-3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gender-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gender-card.male::before {
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,104,71,0.3) 0%, transparent 70%);
+    }
+
+    .gender-card.female::before {
+      background: radial-gradient(ellipse at 50% 100%, rgba(255,215,0,0.15) 0%, transparent 70%);
+    }
+
+    .gender-card:hover::before,
+    .gender-card.selected::before { opacity: 1; }
+
+    .gender-card:hover,
+    .gender-card.selected {
+      border-color: var(--mx-green);
+      transform: translateY(-4px);
+    }
+
+    .gender-card.female:hover,
+    .gender-card.female.selected {
+      border-color: var(--mx-gold);
+    }
+
+    .gender-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 22px;
+      height: 22px;
+      background: var(--mx-green);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gender-card.female.selected::after { background: var(--mx-gold); }
+
+    .gender-emoji { font-size: 52px; line-height: 1; position: relative; z-index: 1; }
+
+    .gender-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+
+    .gender-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── STEP 3: REVEAL ── */
+    .reveal-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 32px;
+    }
+
+    /* The card */
+    .id-card {
+      width: 300px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .card-header {
+      background: var(--mx-green);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header-left {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .card-header-right {
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    .card-photo-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+      background: #111;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    }
+
+    .card-body {
+      padding: 20px 20px 16px;
+      background: var(--dark-3);
+    }
+
+    .card-tag-line {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mx-gold);
+      margin-bottom: 6px;
+    }
+
+    .card-name-first {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 26px;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .card-name-surname {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 14px;
+    }
+
+    .card-apodo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(206,17,38,0.15);
+      border: 1px solid rgba(206,17,38,0.3);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      color: #ff6b7a;
+      letter-spacing: 0.03em;
+      margin-bottom: 14px;
+    }
+
+    .card-footer-strip {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-footer-left {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .card-footer-flags {
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    /* Reveal animation */
+    @keyframes revealName {
+      0% { opacity: 0; transform: translateY(10px) scale(0.95); filter: blur(4px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    .name-animate {
+      animation: revealName 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Loading state */
+    .generating-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 60px 0;
+    }
+
+    .generating-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(0,104,71,0.2);
+      border-top-color: var(--mx-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .generating-text {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* Share / download row */
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--mx-green);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      line-height: 1;
+    }
+
+    .btn-download:hover { background: var(--mx-green-light); transform: translateY(-1px); }
+
+    .btn-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      line-height: 1;
+    }
+
+    .btn-share:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+    .btn-retry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .btn-retry:hover { color: var(--white); }
+
+    /* BG colour picker modal */
+    .share-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .share-modal.open { opacity: 1; pointer-events: all; }
+
+    .share-sheet {
+      background: #1c1c1c;
+      border-radius: 24px 24px 0 0;
+      padding: 28px 24px 40px;
+      width: 100%;
+      max-width: 480px;
+      transform: translateY(24px);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .share-modal.open .share-sheet { transform: translateY(0); }
+
+    .share-sheet-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .share-sheet-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .bg-swatches {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .bg-swatch {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+
+    .bg-swatch:hover { transform: scale(1.1); }
+    .bg-swatch.selected { border-color: var(--white); }
+
+    .bg-swatch.custom-swatch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border: 2px dashed rgba(255,255,255,0.2);
+      font-size: 18px;
+      overflow: hidden;
+    }
+
+    .bg-swatch.custom-swatch input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .btn-generate-share {
+      width: 100%;
+      padding: 15px;
+      background: var(--mx-green);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+
+    .btn-generate-share:hover { background: var(--mx-green-light); }
+
+    /* Main generated card size */
+    #idCard { width: 300px; border-radius: 20px; }
+    #idCard .fc-sport-photo { aspect-ratio: 0.72; }
+    #idCard .fc-sport-name { font-size: 36px; }
+    #idCard .fc-sport-pill {
+      font-size: 10px;
+      padding: 6px 12px;
+      letter-spacing: 0.06em;
+    }
+    #idCard .fc-mx-badge { width: 48px; height: 48px; }
+    #idCard .fc-mx-badge-label span:first-child { font-size: 13px; }
+
+    /* Variant picker */
+    .variant-picker {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 0;
+    }
+
+    .vpick {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      outline: none;
+    }
+
+    .vpick:hover { transform: scale(1.15); }
+    .vpick.active { border-color: var(--white); transform: scale(1.2); box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
+
+    .vpick-dark  { background: #111; }
+    .vpick-white { background: #f0ede8; border-color: rgba(255,255,255,0.2); }
+    .vpick-gold  { background: #FFD700; }
+    .vpick-green { background: #006847; }
+
+    /* hidden canvas */
+    #exportCanvas { display: none; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">🦅</div>
+      <span class="nav-logo-text">Pick <span>A Side</span></span>
+    </a>
+    <div class="nav-pill">
+      <div class="nav-pill-dot"></div>
+      World Cup 2026
+    </div>
+  </nav>
+
+  <!-- MATCH BANNER -->
+  <div class="match-banner" id="matchBanner">
+    <div class="match-banner-inner">
+      <div class="match-status-dot upcoming" id="matchStatusDot"></div>
+
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="match-team-flag flag flag-sa" id="homeFlag">SA</span>
+          <span class="match-team-name" id="homeName">South Africa</span>
+        </div>
+        <div class="match-vs" id="matchVsScore">VS</div>
+        <div class="match-team">
+          <span class="match-team-flag flag flag-mx" id="awayFlag">MX</span>
+          <span class="match-team-name" id="awayName">Mexico</span>
+        </div>
+      </div>
+
+      <div class="match-divider"></div>
+
+      <div class="match-meta">
+        <div class="match-meta-top" id="matchMetaTop">FIFA World Cup 2026 · Group Stage</div>
+        <div class="match-meta-bottom" id="matchMetaBottom">Loading fixture…</div>
+      </div>
+
+      <div class="match-live-badge" id="matchLiveBadge" style="display:none">
+        <div class="match-live-dot"></div> LIVE
+      </div>
+
+      <div class="match-countdown" id="matchCountdown">
+        <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-label">Hrs</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cdMins">--</span><span class="countdown-label">Min</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cdSecs">--</span><span class="countdown-label">Sec</span></div>
+      </div>
+      <div class="match-status-dot upcoming" id="matchStatusDotRight"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING SPORT CARDS — 3 colour variants -->
+  <div class="hero-cards" aria-hidden="true">
+
+    <!-- DARK (top-left) -->
+    <div class="float-card-wrap">
+      <div class="fc-sport fc-sport-dark">
+        <div class="fc-sport-photo"><img src="images/fan1.webp" alt="" />
+          <div class="fc-sport-overlay"></div>
+          <div class="fc-sport-top">
+            <div class="fc-sport-pill">Your Mexican Name Is</div>
+            <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+          </div>
+          <div class="fc-sport-content">
+            <div class="fc-sport-name">Rodrigo<span class="name-accent">Cuauhtémoc</span></div>
+            <div class="fc-sport-nick">"El Toro"</div>
+            <div class="fc-sport-divider"></div>
+            <div class="fc-sport-footer">
+              <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+              <div class="fc-sport-vs-badge">SA vs MX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOLD (bottom-left) -->
+    <div class="float-card-wrap">
+      <div class="fc-sport fc-sport-gold">
+        <div class="fc-sport-photo"><img src="images/fan2.webp" alt="" />
+          <div class="fc-sport-overlay"></div>
+          <div class="fc-sport-top">
+            <div class="fc-sport-pill">Your Mexican Name Is</div>
+            <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+          </div>
+          <div class="fc-sport-content">
+            <div class="fc-sport-name">Ximena<span class="name-accent">Xóchitl</span></div>
+            <div class="fc-sport-nick">"La Reina"</div>
+            <div class="fc-sport-divider"></div>
+            <div class="fc-sport-footer">
+              <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+              <div class="fc-sport-vs-badge">SA vs MX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GREEN (right) -->
+    <div class="float-card-wrap">
+      <div class="fc-sport fc-sport-green">
+        <div class="fc-sport-photo"><img src="images/fan3.webp" alt="" />
+          <div class="fc-sport-overlay"></div>
+          <div class="fc-sport-top">
+            <div class="fc-sport-pill">Your Mexican Name Is</div>
+            <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+          </div>
+          <div class="fc-sport-content">
+            <div class="fc-sport-name">Tláloc<span class="name-accent">Alejandro</span></div>
+            <div class="fc-sport-nick">"El Halcón"</div>
+            <div class="fc-sport-divider"></div>
+            <div class="fc-sport-footer">
+              <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+              <div class="fc-sport-vs-badge">SA vs MX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHITE (bottom-right) -->
+    <div class="float-card-wrap">
+      <div class="fc-sport fc-sport-white">
+        <div class="fc-sport-photo"><img src="images/fan4.webp" alt="" />
+          <div class="fc-sport-overlay"></div>
+          <div class="fc-sport-top">
+            <div class="fc-sport-pill">Your Mexican Name Is</div>
+            <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+          </div>
+          <div class="fc-sport-content">
+            <div class="fc-sport-name">Carlos<span class="name-accent">Moreno</span></div>
+            <div class="fc-sport-nick">"El Lobo"</div>
+            <div class="fc-sport-divider"></div>
+            <div class="fc-sport-footer">
+              <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+              <div class="fc-sport-vs-badge">SA vs MX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-badge reveal">
+        FIFA World Cup 2026 &nbsp;·&nbsp; Group Stage
+      </div>
+
+      <h1 class="hero-headline reveal" style="transition-delay:0.1s">
+        <span>Sorry,</span>
+        <span class="line-green">not sorry</span>
+        <span class="line-gold">Bafana. 👋</span>
+      </h1>
+
+      <p class="hero-sub reveal" style="transition-delay:0.2s">
+        You know which side you're on.
+      </p>
+
+      <p class="hero-body reveal" style="transition-delay:0.3s">
+        South Africa vs Mexico. Africa is united — and we're all backing México.
+        Upload your photo, get your official Mexican name,
+        and post it on social media. Let the world see Africa stands together. 🌍
+      </p>
+
+      <div class="hero-cta reveal" style="transition-delay:0.4s">
+        <a href="#generate" class="btn-primary">
+          <span class="flag flag-mx flag-sm">MX</span>
+          Get My Name.
+        </a>
+        <a href="#how" class="btn-secondary">
+          <span class="btn-icon">👀</span>
+          How it works
+        </a>
+      </div>
+
+      <!-- Mobile-only swipeable card strip -->
+      <div class="card-strip-wrap" id="cardStripWrap" aria-hidden="true">
+      <div class="mobile-card-strip" id="cardStrip">
+
+        <!-- DARK -->
+        <div class="fc-sport fc-sport-dark" style="width:170px">
+          <div class="fc-sport-photo"><img src="images/fan1.webp" alt="" />
+            <div class="fc-sport-overlay"></div>
+            <div class="fc-sport-top">
+              <div class="fc-sport-pill">Your Mexican Name Is</div>
+              <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+            </div>
+            <div class="fc-sport-content">
+              <div class="fc-sport-name">Rodrigo<span class="name-accent">Cuauhtémoc</span></div>
+              <div class="fc-sport-nick">"El Toro"</div>
+              <div class="fc-sport-divider"></div>
+              <div class="fc-sport-footer">
+                <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+                <div class="fc-sport-vs-badge">SA vs MX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHITE -->
+        <div class="fc-sport fc-sport-white" style="width:170px">
+          <div class="fc-sport-photo"><img src="images/fan2.webp" alt="" />
+            <div class="fc-sport-overlay"></div>
+            <div class="fc-sport-top">
+              <div class="fc-sport-pill">Your Mexican Name Is</div>
+              <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+            </div>
+            <div class="fc-sport-content">
+              <div class="fc-sport-name">Ximena<span class="name-accent">Xóchitl</span></div>
+              <div class="fc-sport-nick">"La Reina"</div>
+              <div class="fc-sport-divider"></div>
+              <div class="fc-sport-footer">
+                <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+                <div class="fc-sport-vs-badge">SA vs MX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GOLD -->
+        <div class="fc-sport fc-sport-gold" style="width:170px">
+          <div class="fc-sport-photo"><img src="images/fan3.webp" alt="" />
+            <div class="fc-sport-overlay"></div>
+            <div class="fc-sport-top">
+              <div class="fc-sport-pill">Your Mexican Name Is</div>
+              <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+            </div>
+            <div class="fc-sport-content">
+              <div class="fc-sport-name">Tláloc<span class="name-accent">Alejandro</span></div>
+              <div class="fc-sport-nick">"El Halcón"</div>
+              <div class="fc-sport-divider"></div>
+              <div class="fc-sport-footer">
+                <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+                <div class="fc-sport-vs-badge">SA vs MX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GREEN -->
+        <div class="fc-sport fc-sport-green" style="width:170px">
+          <div class="fc-sport-photo"><img src="images/fan4.webp" alt="" />
+            <div class="fc-sport-overlay"></div>
+            <div class="fc-sport-top">
+              <div class="fc-sport-pill">Your Mexican Name Is</div>
+              <div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div>
+            </div>
+            <div class="fc-sport-content">
+              <div class="fc-sport-name">Carlos<span class="name-accent">Moreno</span></div>
+              <div class="fc-sport-nick">"El Lobo"</div>
+              <div class="fc-sport-divider"></div>
+              <div class="fc-sport-footer">
+                <div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div>
+                <div class="fc-sport-vs-badge">SA vs MX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplicated set for seamless loop -->
+        <div class="fc-sport fc-sport-dark" style="width:170px"><div class="fc-sport-photo"><img src="images/fan1.webp" alt="" /><div class="fc-sport-overlay"></div><div class="fc-sport-top"><div class="fc-sport-pill">Your Mexican Name Is</div><div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div></div><div class="fc-sport-content"><div class="fc-sport-name">Rodrigo<span class="name-accent">Cuauhtémoc</span></div><div class="fc-sport-nick">"El Toro"</div><div class="fc-sport-divider"></div><div class="fc-sport-footer"><div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div><div class="fc-sport-vs-badge">SA vs MX</div></div></div></div></div>
+        <div class="fc-sport fc-sport-white" style="width:170px"><div class="fc-sport-photo"><img src="images/fan2.webp" alt="" /><div class="fc-sport-overlay"></div><div class="fc-sport-top"><div class="fc-sport-pill">Your Mexican Name Is</div><div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div></div><div class="fc-sport-content"><div class="fc-sport-name">Ximena<span class="name-accent">Xóchitl</span></div><div class="fc-sport-nick">"La Reina"</div><div class="fc-sport-divider"></div><div class="fc-sport-footer"><div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div><div class="fc-sport-vs-badge">SA vs MX</div></div></div></div></div>
+        <div class="fc-sport fc-sport-gold" style="width:170px"><div class="fc-sport-photo"><img src="images/fan3.webp" alt="" /><div class="fc-sport-overlay"></div><div class="fc-sport-top"><div class="fc-sport-pill">Your Mexican Name Is</div><div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div></div><div class="fc-sport-content"><div class="fc-sport-name">Tláloc<span class="name-accent">Alejandro</span></div><div class="fc-sport-nick">"El Halcón"</div><div class="fc-sport-divider"></div><div class="fc-sport-footer"><div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div><div class="fc-sport-vs-badge">SA vs MX</div></div></div></div></div>
+        <div class="fc-sport fc-sport-green" style="width:170px"><div class="fc-sport-photo"><img src="images/fan4.webp" alt="" /><div class="fc-sport-overlay"></div><div class="fc-sport-top"><div class="fc-sport-pill">Your Mexican Name Is</div><div class="fc-mx-badge"><div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div><div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div></div></div><div class="fc-sport-content"><div class="fc-sport-name">Carlos<span class="name-accent">Moreno</span></div><div class="fc-sport-nick">"El Lobo"</div><div class="fc-sport-divider"></div><div class="fc-sport-footer"><div class="fc-sport-footer-left"><span class="fc-sport-footer-line1">Africa backs México</span><span class="fc-sport-footer-line2">FIFA World Cup 2026</span></div><div class="fc-sport-vs-badge">SA vs MX</div></div></div></div></div>
+
+      </div><!-- end mobile-card-strip -->
+      </div><!-- end card-strip-wrap, no dots needed -->
+
+      <div class="hero-stats reveal" style="transition-delay:0.5s">
+        <div class="stat">
+          <span class="stat-number">1B+</span>
+          <span class="stat-label">Unique Names</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" id="defector-count">—</span>
+          <span class="stat-label">Cards Generated</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">Free</span>
+          <span class="stat-label">No Loyalty Required</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">💀</span>
+          <span class="stat-label">Bafana's Feelings</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div class="band">
+    <div class="band-track">
+      <!-- doubled for seamless loop -->
+      <div class="band-item"><span class="flag flag-mx flag-sm">MX</span> Viva México <div class="band-dot"></div></div>
+      <div class="band-item">💀 Sorry Bafana <div class="band-dot"></div></div>
+      <div class="band-item">⚽ FIFA World Cup 2026 <div class="band-dot"></div></div>
+      <div class="band-item">El Tri All Day <div class="band-dot"></div></div>
+      <div class="band-item">🌮 Tacos Over Biltong <div class="band-dot"></div></div>
+      <div class="band-item"><span class="flag flag-sa flag-sm">SA</span> No Loyalty <div class="band-dot"></div></div>
+      <div class="band-item"><span class="flag flag-mx flag-sm">MX</span> Viva México <div class="band-dot"></div></div>
+      <div class="band-item">💀 Sorry Bafana <div class="band-dot"></div></div>
+      <div class="band-item">⚽ FIFA World Cup 2026 <div class="band-dot"></div></div>
+      <div class="band-item">El Tri All Day <div class="band-dot"></div></div>
+      <div class="band-item">🌮 Tacos Over Biltong <div class="band-dot"></div></div>
+      <div class="band-item"><span class="flag flag-sa flag-sm">SA</span> No Loyalty <div class="band-dot"></div></div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-how" id="how">
+    <p class="section-label reveal">The African Takeover</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">
+      Four steps to join<br>the takeover
+    </h2>
+
+    <div class="steps-grid">
+      <div class="step-card reveal" style="transition-delay:0.1s">
+        <span class="step-number">01</span>
+        <div class="step-icon">📸</div>
+        <h3 class="step-title">Drop Your Selfie</h3>
+        <p class="step-desc">Upload a photo. Your face becomes the seed — so your Mexican name is uniquely yours. No two traitors get the same name.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:0.2s">
+        <span class="step-number">02</span>
+        <div class="step-icon">⚡</div>
+        <h3 class="step-title">Pick Your Energy</h3>
+        <p class="step-desc">Aztec warrior? Colonial royalty? Modern Mexican? Choose your gender and vibe — we'll match the name to your personality.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:0.3s">
+        <span class="step-number">03</span>
+        <div class="step-icon">🎴</div>
+        <h3 class="step-title">Claim Your Card</h3>
+        <p class="step-desc">Get a full identity card — your face, your Mexican name, your nickname, and official proof that Africa is backing Mexico.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:0.4s">
+        <span class="step-number">04</span>
+        <div class="step-icon">💀</div>
+        <h3 class="step-title">Post It Everywhere</h3>
+        <p class="step-desc">Drop it on WhatsApp, IG Stories, TikTok. Let the whole continent show up. Africa united, one name, one team. 🌍</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERATE OVERLAY -->
+  <div class="overlay" id="generateOverlay" role="dialog" aria-modal="true" aria-label="Get your Mexican name">
+
+    <div class="overlay-nav">
+      <span class="overlay-logo">Pick <span>A Side</span> <span class="flag flag-mx flag-sm" style="margin-left:2px">MX</span></span>
+      <button class="overlay-close" id="overlayClose" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="step-progress" id="stepProgress">
+      <div class="step-pip active" id="pip1">
+        <div class="step-pip-dot">1</div>
+        <span class="step-pip-label">Photo</span>
+      </div>
+      <div class="step-connector" id="conn1"></div>
+      <div class="step-pip" id="pip2">
+        <div class="step-pip-dot">2</div>
+        <span class="step-pip-label">Vibe</span>
+      </div>
+      <div class="step-connector" id="conn2"></div>
+      <div class="step-pip" id="pip3">
+        <div class="step-pip-dot">3</div>
+        <span class="step-pip-label">Card</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: Upload -->
+    <div class="step-panel active" id="step1">
+      <h2 class="step-heading">Drop your selfie.</h2>
+      <p class="step-sub">Your face seeds the name — so yours is unique.<br>We never upload or store your photo.</p>
+
+      <div class="upload-zone" id="uploadZone">
+        <img class="upload-preview" id="uploadPreview" alt="Your photo" />
+        <div id="uploadPlaceholder">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;pointer-events:none">
+            <span class="upload-icon">📸</span>
+            <span class="upload-label">Tap or drag a photo</span>
+            <span class="upload-hint">Use the buttons below on mobile</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo action buttons -->
+      <div class="upload-actions" id="uploadActions">
+        <!-- Before photo: two input options -->
+        <div id="uploadBtns" style="display:flex;gap:10px;width:100%">
+          <label class="upload-opt-btn" for="photoCameraInput">
+            📷 Camera
+            <input type="file" id="photoCameraInput" accept="image/*" capture="environment" />
+          </label>
+          <label class="upload-opt-btn" for="photoGalleryInput" style="flex:1.5">
+            🖼 Gallery
+            <input type="file" id="photoGalleryInput" accept="image/*" />
+          </label>
+        </div>
+        <!-- After photo: change + remove -->
+        <div id="photoEditBtns" style="display:none;gap:10px;width:100%">
+          <label class="upload-opt-btn upload-opt-secondary" for="photoChangeInput">
+            🔄 Change
+            <input type="file" id="photoChangeInput" accept="image/*" />
+          </label>
+          <button class="upload-opt-btn upload-opt-danger" id="removePhotoBtn">✕ Remove</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;width:100%;max-width:360px">
+        <button class="btn-primary" id="step1Next" style="width:100%;justify-content:center;opacity:0.4;pointer-events:none">
+          Continue <span style="margin-left:4px">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Gender -->
+    <div class="step-panel" id="step2">
+      <h2 class="step-heading">Pick your energy.</h2>
+      <p class="step-sub">This shapes your name. Choose wisely —<br>there's no wrong answer. 👀</p>
+
+      <div class="gender-grid">
+        <div class="gender-card male" data-gender="male" id="genderMale">
+          <span class="gender-emoji">🦅</span>
+          <span class="gender-label">Male</span>
+          <span class="gender-sub">Guy names</span>
+        </div>
+        <div class="gender-card female" data-gender="female" id="genderFemale">
+          <span class="gender-emoji">🌺</span>
+          <span class="gender-label">Female</span>
+          <span class="gender-sub">Girl names</span>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;width:100%;max-width:400px">
+        <button class="btn-primary" id="step2Next" style="width:100%;justify-content:center;opacity:0.4;pointer-events:none">
+          Reveal My Name <span class="flag flag-mx flag-sm" style="margin-left:4px">MX</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Card -->
+    <div class="step-panel" id="step3">
+      <div class="generating-state" id="generatingState">
+        <div class="generating-spinner"></div>
+        <p class="generating-text">Consulting the Aztec gods…</p>
+      </div>
+
+      <div class="reveal-wrapper" id="revealWrapper" style="display:none">
+        <p style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mx-gold);margin-bottom:4px">
+          Your Mexican Name Is:
+        </p>
+
+        <!-- Sport card with variant switcher -->
+        <div class="fc-sport fc-sport-dark" id="idCard" style="width:300px">
+          <div class="fc-sport-photo" id="cardPhotoWrap">
+            <div class="card-photo-placeholder" id="cardPlaceholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:72px;z-index:0">🌮</div>
+            <div class="fc-sport-overlay"></div>
+            <div class="fc-sport-top">
+              <div class="fc-sport-pill">Your Mexican Name Is</div>
+              <div class="fc-mx-badge">
+                <div class="fc-mx-badge-stripes"><span></span><span></span><span></span></div>
+                <div class="fc-mx-badge-label"><span>MX</span><div class="fc-mx-badge-stars"><span>★</span><span>★</span><span>★</span></div></div>
+              </div>
+            </div>
+            <div class="fc-sport-content">
+              <div class="fc-sport-name name-animate" id="cardFirstName" style="font-size:36px">—</div>
+              <div class="fc-sport-name name-accent name-animate" id="cardSurnames" style="font-size:22px;color:var(--accent)">— —</div>
+              <div class="fc-sport-nick name-animate" id="cardApodo">"—"</div>
+              <div class="fc-sport-divider"></div>
+              <div class="fc-sport-footer">
+                <div class="fc-sport-footer-left">
+                  <span class="fc-sport-footer-line1">Africa backs México 🌍</span>
+                  <span class="fc-sport-footer-line2">FIFA World Cup 2026</span>
+                </div>
+                <div class="fc-sport-vs-badge">SA vs MX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Variant picker -->
+        <div class="variant-picker" id="variantPicker" style="display:none">
+          <button class="vpick vpick-dark active" data-v="dark" title="Dark"></button>
+          <button class="vpick vpick-white" data-v="white" title="Light"></button>
+          <button class="vpick vpick-gold"  data-v="gold"  title="Gold"></button>
+          <button class="vpick vpick-green" data-v="green" title="Green"></button>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-download" id="btnDownload">⬇️ &nbsp;Download</button>
+          <button class="btn-share" id="btnShare">🚀 &nbsp;Share</button>
+          <button class="btn-retry" id="btnRetry">🔄 &nbsp;Try a different name</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Share BG picker sheet -->
+  <div class="share-modal" id="shareModal">
+    <div class="share-sheet">
+      <div class="share-sheet-title">Share to Stories</div>
+      <div class="share-sheet-sub">Pick a background colour for your share image</div>
+      <div class="bg-swatches" id="bgSwatches">
+        <div class="bg-swatch selected" data-color="#0a0a0a" style="background:#0a0a0a"></div>
+        <div class="bg-swatch" data-color="#006847" style="background:#006847"></div>
+        <div class="bg-swatch" data-color="#CE1126" style="background:#CE1126"></div>
+        <div class="bg-swatch" data-color="#FFD700" style="background:#FFD700"></div>
+        <div class="bg-swatch" data-color="#ffffff" style="background:#ffffff"></div>
+        <div class="bg-swatch" data-color="#1a1a2e" style="background:#1a1a2e"></div>
+        <div class="bg-swatch custom-swatch" title="Custom colour">
+          🎨
+          <input type="color" id="customColor" value="#006847" />
+        </div>
+      </div>
+      <button class="btn-generate-share" id="btnGenerateShare" data-action="share">Generate & Share 🚀</button>
+    </div>
+  </div>
+
+  <canvas id="exportCanvas"></canvas>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">© 2026 Pick A Side — Just banter. We still love you, Bafana. 💚</span>
+    <span class="footer-flags" style="display:inline-flex;align-items:center;gap:6px;line-height:1">
+      <span class="flag flag-sa flag-sm">SA</span> ⚽ <span class="flag flag-mx flag-sm">MX</span>
+    </span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    /* ══════════════════════════════════════════════
+       MATCH CONFIG — update this as SA progresses
+       ══════════════════════════════════════════════ */
+    // API now goes through /api/matches (Netlify proxy) — no key needed in frontend
+
+    /* ╔══════════════════════════════════════════════════════════╗
+       ║  MATCH UPDATER — edit this between SA games             ║
+       ║  status: "SCHEDULED" | "IN_PLAY" | "FINISHED"          ║
+       ║  score: set to null when SCHEDULED, numbers when done   ║
+       ╚══════════════════════════════════════════════════════════╝ */
+
+    // Fallback fixture data (used when API key is absent or fetch fails)
+    // Update OPPONENT for each new SA match
+    const SA_FIXTURES_FALLBACK = [
+      {
+        id: 537327,
+        home: { name: 'Mexico',       code: 'MEX' },
+        away: { name: 'South Africa', code: 'RSA' },
+        utcDate: '2026-06-11T19:00:00Z',
+        stage: 'Group Stage', matchday: 'Matchday 1',
+        status: 'SCHEDULED', score: { home: null, away: null },
+      },
+      {
+        id: 537329,
+        home: { name: 'Czechia',      code: 'CZE' },
+        away: { name: 'South Africa', code: 'RSA' },
+        utcDate: '2026-06-18T16:00:00Z',
+        stage: 'Group Stage', matchday: 'Matchday 2',
+        status: 'SCHEDULED', score: { home: null, away: null },
+      },
+      {
+        id: 537332,
+        home: { name: 'South Africa', code: 'RSA' },
+        away: { name: 'South Korea',  code: 'KOR' },
+        utcDate: '2026-06-25T01:00:00Z',
+        stage: 'Group Stage', matchday: 'Matchday 3',
+        status: 'SCHEDULED', score: { home: null, away: null },
+      },
+    ];
+
+    // Country → theme colour map (for future multi-opponent support)
+    const COUNTRY_THEMES = {
+      MEX: { primary: '#006847', accent: '#FFD700', label: 'Mexican' },
+      FRA: { primary: '#002395', accent: '#ED2939', label: 'French'  },
+      BRA: { primary: '#009C3B', accent: '#FFDF00', label: 'Brazilian' },
+      ARG: { primary: '#74ACDF', accent: '#F6B40E', label: 'Argentine' },
+      ESP: { primary: '#AA151B', accent: '#F1BF00', label: 'Spanish' },
+      GER: { primary: '#000000', accent: '#DD0000', label: 'German' },
+      ENG: { primary: '#012169', accent: '#CF142B', label: 'English' },
+      POR: { primary: '#006600', accent: '#FF0000', label: 'Portuguese' },
+      USA: { primary: '#002868', accent: '#BF0A30', label: 'American' },
+    };
+
+    /* ── FIXTURES ENGINE ── */
+    async function loadFixtures() {
+      let fixtures = SA_FIXTURES_FALLBACK;
+
+      try {
+        const res  = await fetch('/api/matches?endpoint=team-matches&teamId=774&competitions=WC');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.matches && data.matches.length > 0) {
+            fixtures = data.matches.map(m => ({
+              id:       m.id,
+              home:     { name: m.homeTeam.name, code: m.homeTeam.tla },
+              away:     { name: m.awayTeam.name, code: m.awayTeam.tla },
+              utcDate:  m.utcDate,
+              stage:    m.stage,
+              matchday: m.matchday ? `Matchday ${m.matchday}` : m.stage,
+              status:   m.status,
+              score:    {
+                home: m.score?.fullTime?.home,
+                away: m.score?.fullTime?.away,
+              },
+              goals: (m.goals || []).map(g => ({
+                minute:  g.minute,
+                scorer:  g.scorer?.name || 'Unknown',
+                team:    g.team?.tla,
+              })),
+            }));
+          }
+        }
+      } catch(e) {
+        console.warn('Fixtures API unavailable, using fallback data.');
+      }
+
+      renderBanner(fixtures);
+    }
+
+    // Returns a styled HTML badge for any country code
+    const TEAM_COLORS = {
+      RSA: { bg:'#007A4D', color:'#fff' },
+      MEX: { bg:'#006847', color:'#fff' },
+      FRA: { bg:'#002395', color:'#fff' },
+      BRA: { bg:'#009C3B', color:'#fff' },
+      ARG: { bg:'#74ACDF', color:'#fff' },
+      ESP: { bg:'#AA151B', color:'#fff' },
+      GER: { bg:'#222',    color:'#fff' },
+      ENG: { bg:'#012169', color:'#fff' },
+      POR: { bg:'#006600', color:'#fff' },
+      USA: { bg:'#002868', color:'#fff' },
+      MAR: { bg:'#C1272D', color:'#fff' },
+      SEN: { bg:'#00853F', color:'#fff' },
+      NED: { bg:'#FF6600', color:'#fff' },
+      BEL: { bg:'#EF3340', color:'#fff' },
+      URY: { bg:'#5EB6E4', color:'#fff' },
+      COL: { bg:'#FCD116', color:'#000' },
+      JPN: { bg:'#BC002D', color:'#fff' },
+      KOR: { bg:'#003478', color:'#fff' },
+    };
+
+    const TLA_DISPLAY = { RSA:'SA', GBR:'ENG', KOR:'KOR', CZE:'CZE' };
+    function teamFlag(tla) {
+      const t = TEAM_COLORS[tla] || { bg:'#444', color:'#fff' };
+      const label = TLA_DISPLAY[tla] || tla;
+      return `<span class="flag" style="background:${t.bg};color:${t.color};font-size:10px;padding:3px 6px;border-radius:5px;font-weight:800;letter-spacing:0.04em;line-height:1;display:inline-flex;align-items:center">${label}</span>`;
+    }
+
+    function renderBanner(fixtures) {
+      // Find the next upcoming, or current live match, or last finished
+      const now = new Date();
+      // API uses "TIMED" for upcoming matches (same as "SCHEDULED")
+      const isUpcoming = f => (f.status === 'SCHEDULED' || f.status === 'TIMED') && new Date(f.utcDate) > now;
+      let match =
+        fixtures.find(f => f.status === 'IN_PLAY') ||
+        fixtures.find(f => isUpcoming(f)) ||
+        [...fixtures].reverse().find(f => f.status === 'FINISHED');
+
+      if (!match) return;
+
+      const kickoff = new Date(match.utcDate);
+      const isLive = match.status === 'IN_PLAY';
+      const isFinished = match.status === 'FINISHED';
+
+      // Populate team info
+      document.getElementById('homeFlag').innerHTML = teamFlag(match.home.code);
+      document.getElementById('homeName').textContent = match.home.name;
+      document.getElementById('awayFlag').innerHTML = teamFlag(match.away.code);
+      document.getElementById('awayName').textContent = match.away.name;
+      document.getElementById('matchMetaTop').textContent =
+        `FIFA World Cup 2026 · ${match.matchday || match.stage}`;
+
+      const dot = document.getElementById('matchStatusDot');
+      const dotR = document.getElementById('matchStatusDotRight');
+
+      if (isLive) {
+        // Show score + LIVE badge
+        document.getElementById('matchVsScore').textContent =
+          `${match.score.home ?? 0} – ${match.score.away ?? 0}`;
+        document.getElementById('matchLiveBadge').style.display = 'flex';
+        document.getElementById('matchCountdown').style.display = 'none';
+        document.getElementById('matchMetaBottom').textContent = '⚽ Match in progress';
+        dot.className = 'match-status-dot live';
+        dotR.className = 'match-status-dot live';
+
+      } else if (isFinished) {
+        document.getElementById('matchVsScore').textContent =
+          `${match.score.home} – ${match.score.away}`;
+        document.getElementById('matchCountdown').style.display = 'none';
+        document.getElementById('matchMetaBottom').textContent = 'Full time';
+        dot.className = 'match-status-dot finished';
+        dotR.className = 'match-status-dot finished';
+
+      } else {
+        // Upcoming — show countdown
+        document.getElementById('matchVsScore').textContent = 'VS';
+        dot.className = 'match-status-dot upcoming';
+        dotR.className = 'match-status-dot upcoming';
+
+        // Format date/time in SAST (UTC+2)
+        const sast = new Date(kickoff.getTime());
+        const opts = { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'Africa/Johannesburg' };
+        document.getElementById('matchMetaBottom').textContent =
+          kickoff.toLocaleString('en-ZA', opts) + ' SAST';
+
+        startCountdown(kickoff);
+      }
+
+      // Show banner
+      document.getElementById('matchBanner').classList.add('visible');
+    }
+
+    function startCountdown(kickoff) {
+      function tick() {
+        const diff = kickoff - new Date();
+        if (diff <= 0) {
+          document.getElementById('cdDays').textContent  = '0';
+          document.getElementById('cdHours').textContent = '00';
+          document.getElementById('cdMins').textContent  = '00';
+          document.getElementById('cdSecs').textContent  = '00';
+          document.getElementById('matchMetaBottom').textContent = '🔴 Match starting now!';
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cdDays').textContent  = d;
+        document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+        document.getElementById('cdMins').textContent  = String(m).padStart(2,'0');
+        document.getElementById('cdSecs').textContent  = String(s).padStart(2,'0');
+        setTimeout(tick, 1000);
+      }
+      tick();
+    }
+
+    // Boot + smart polling:
+    // • Every 60s during a live match
+    // • Every 5 min otherwise
+    let pollTimer;
+    async function bootFixtures() {
+      await loadFixtures();
+      const isLive = document.getElementById('matchLiveBadge')?.style.display !== 'none';
+      pollTimer = setTimeout(bootFixtures, isLive ? 60_000 : 300_000);
+    }
+    bootFixtures();
+
+    /* ── NAME DATABASE ── */
+    const MALE_NAMES = [
+      'Alejandro','Andrés','Antonio','Arturo','Bernardo','Carlos','César','Cuauhtémoc',
+      'Daniel','David','Diego','Eduardo','Emilio','Enrique','Ernesto','Esteban','Felipe',
+      'Fernando','Francisco','Gabriel','Gerardo','Gonzalo','Guillermo','Gustavo','Héctor',
+      'Ignacio','Iván','Javier','Jesús','Jorge','José','Juan','Julio','Leonardo','Luis',
+      'Manuel','Marco','Marcos','Mario','Miguel','Nicolás','Óscar','Pablo','Pedro','Rafael',
+      'Ramón','Raúl','Ricardo','Roberto','Rodrigo','Rubén','Santiago','Sebastián','Sergio',
+      'Tláloc','Tomás','Valentín','Víctor','Xavier','Alonso','Álvaro','Adrián','Agustín',
+      'Armando','Aurelio','Baldomero','Benito','Celestino','Cuitláhuac','Damián','Emiliano',
+      'Ezequiel','Fidel','Gregorio','Hipólito','Isidro','Jacinto','Leopoldo','Lorenzo',
+      'Lucio','Moctezuma','Néstor','Octavio','Pacífico','Pascual','Porfirio','Refugio',
+      'Reinaldo','Renato','Rigoberto','Silvano','Ulises','Vicente','Yael','Zacarías',
+      'Alfredo','Benjamín','Claudio','Erick','Gilberto','Horacio','Ismael','Jonás',
+      'Leonel','Marcelo','Noel','Obed','Prometeo','Ramsés','Salvador','Uriel',
+    ];
+
+    const FEMALE_NAMES = [
+      'Adriana','Alejandra','Alicia','Ana','Beatriz','Brenda','Carmen','Carolina',
+      'Catalina','Cecilia','Citlali','Claudia','Consuelo','Daniela','Diana','Dolores',
+      'Elena','Esperanza','Fernanda','Flor','Francisca','Gabriela','Gloria','Graciela',
+      'Guadalupe','Hortensia','Inés','Irene','Isabel','Itzel','Juana','Karla','Laura',
+      'Leticia','Lorena','Lucía','Luisa','Magdalena','Margarita','María','Mariana',
+      'Marisol','Marta','Mercedes','Mónica','Natalia','Nayeli','Norma','Paola',
+      'Patricia','Pilar','Quetzali','Raquel','Rebeca','Rocío','Rosa','Sandra','Sara',
+      'Silvia','Sofía','Susana','Teresa','Tonatzin','Valentina','Valeria','Verónica',
+      'Ximena','Xóchitl','Yolanda','Yoloxóchitl','Zeltzin','Azul','Paloma','Soledad',
+      'Remedios','Amparo','Concepción','Celia','Estela','Ofelia','Griselda','Miriam',
+      'Nadia','Perla','Rosario','Talia','Viviana','Xiadani','Ilhui','Necahual','Ameyali',
+      'Mayahuel','Zyanya','Atl','Chalchiuh','Citlalmina','Ixtli','Tlazohtzin','Cuicatl',
+    ];
+
+    const APELLIDOS = [
+      'Acosta','Aguilar','Aguirre','Alarcón','Alvarado','Álvarez','Arellano','Arroyo',
+      'Ávila','Balderas','Becerra','Bernal','Blanco','Bravo','Cabrera','Calderón',
+      'Campos','Cárdenas','Carrillo','Castañeda','Castellanos','Castillo','Castro',
+      'Cervantes','Chávez','Cisneros','Contreras','Corona','Cortés','Cruz','Cuevas',
+      'Delgado','Díaz','Domínguez','Duarte','Elizondo','Escamilla','Espinoza','Esquivel',
+      'Estrada','Figueroa','Flores','Fonseca','Franco','Fuentes','Gallegos','García',
+      'Garza','Godínez','Gómez','González','Guerrero','Gutiérrez','Guzmán','Herrera',
+      'Hernández','Hidalgo','Huerta','Ibarra','Jiménez','Juárez','Lara','León','López',
+      'Lozano','Luna','Macías','Maldonado','Martínez','Mata','Medina','Mejía','Méndez',
+      'Mendoza','Miranda','Molina','Montes','Montoya','Morales','Moreno','Navarro',
+      'Nieto','Noriega','Núñez','Ochoa','Orozco','Ortega','Ortiz','Osorio','Pacheco',
+      'Padilla','Palacios','Palomino','Parra','Peña','Pérez','Pineda','Portillo',
+      'Quezada','Quintero','Ramírez','Ramos','Rentería','Reyes','Rico','Ríos','Rivera',
+      'Robles','Rodríguez','Rojas','Romero','Ruiz','Salazar','Salinas','Sánchez',
+      'Sandoval','Santillán','Serrano','Silva','Soto','Tapia','Torres','Trejo','Trujillo',
+      'Uribe','Valdez','Valencia','Valenzuela','Valle','Vargas','Vázquez','Vega',
+      'Velázquez','Villanueva','Villarreal','Zarate','Zavala','Zepeda','Leyva','Lugo',
+      'Macedo','Mancilla','Manzano','Mares','Marín','Márquez','Meléndez','Mondragón',
+      'Montenegro','Monroy','Mora','Nava','Navarrete','Negrete','Obregón','Ocampo',
+      'Ojeda','Palma','Peralta','Prieto','Quiroz','Rivas','Rosales','Salgado',
+      'Segura','Sepúlveda','Solís','Suárez','Téllez','Tovar','Ugalde','Valadez',
+      'Velarde','Vera','Vergara','Vilchis','Yáñez','Zamora','Zaragoza','Cienfuegos',
+      'De la Cruz','De la Torre','Del Río','Del Toro','Escobedo','Gastelum','Izquierdo',
+    ];
+
+    const APODOS_MALE = [
+      'El Toro 🐂','El Gato 🐱','El Diablo 😈','El Cobra 🐍','El Lobo 🐺',
+      'El Tigre 🐯','El Coyote 🦊','El Buitre 🦅','El Halcón 🦅','El Gigante 💪',
+      'El Rápido ⚡','El Maestro 🎓','El Capitán ⚓','El Mago 🪄','El Guerrero ⚔️',
+      'El Bravo 💥','El Charro 🤠','El Flaco 🦴','El Güero 😎','El Pistolero 🤠',
+      'El Campeón 🏆','El Matador 🌹','El Fantasma 👻','El Trueno ⛈️','El Volcán 🌋',
+    ];
+
+    const APODOS_FEMALE = [
+      'La Reina 👑','La Tigresa 🐯','La Cobra 🐍','La Bala 💨','La Leona 🦁',
+      'La Bruja 🔮','La Diosa 🌟','La Guerrera ⚔️','La Campeona 🏆','La Maestra 🎓',
+      'La Capitana ⚓','La Maga 🪄','La Flaca 🦋','La Güera 😎','La Chula 🌹',
+      'La Valiente 💥','La Brava 🔥','La Princesa 👸','La Patrona 💼','La Jefa 👊',
+      'La Poderosa 💪','La Flor 🌺','La Luna 🌙','La Tormenta ⛈️','La Volcana 🌋',
+    ];
+
+    /* ── PRNG (Mulberry32) ── */
+    function mulberry32(seed) {
+      return function () {
+        seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function pick(arr, rng) { return arr[Math.floor(rng() * arr.length)]; }
+
+    /* ── PHOTO HASH ── */
+    function hashImage(img) {
+      const c = document.createElement('canvas');
+      c.width = 16; c.height = 16;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, 16, 16);
+      const d = ctx.getImageData(0, 0, 16, 16).data;
+      let h = 2166136261;
+      for (let i = 0; i < d.length; i += 4) {
+        h ^= (d[i] * 31 + d[i+1] * 17 + d[i+2] * 7);
+        h = (Math.imul(h, 16777619)) >>> 0;
+      }
+      return h;
+    }
+
+    /* ── NAME GENERATOR ── */
+    function generateName(photoHash, gender, salt) {
+      const rng = mulberry32(photoHash ^ (gender === 'male' ? 0xABCD : 0xEF12) ^ (salt * 0x9E3779B9));
+      const firstName = pick(gender === 'male' ? MALE_NAMES : FEMALE_NAMES, rng);
+      const ap = pick(APELLIDOS, rng);
+      let am; do { am = pick(APELLIDOS, rng); } while (am === ap);
+      const apodo = pick(gender === 'male' ? APODOS_MALE : APODOS_FEMALE, rng);
+      return { firstName, ap, am, apodo };
+    }
+
+    /* ── STATE ── */
+    let photoFile = null, photoHash = null, selectedGender = null, nameSalt = 0;
+
+    /* ── OVERLAY OPEN / CLOSE ── */
+    const overlay = document.getElementById('generateOverlay');
+
+    // Wire the single hero CTA button directly
+    document.querySelector('.hero-cta .btn-primary').addEventListener('click', e => {
+      e.preventDefault();
+      openOverlay();
+      incrementCount();
+    });
+
+    function openOverlay() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      goToStep(1);
+    }
+
+    document.getElementById('overlayClose').addEventListener('click', () => {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+
+    /* ── STEP NAVIGATION ── */
+    function goToStep(n) {
+      [1,2,3].forEach(i => {
+        document.getElementById('step'+i).classList.toggle('active', i === n);
+        const pip = document.getElementById('pip'+i);
+        pip.classList.toggle('active', i === n);
+        pip.classList.toggle('done', i < n);
+        if (i < 3) document.getElementById('conn'+i).classList.toggle('done', i < n);
+      });
+      if (n === 3) runReveal();
+    }
+
+    /* ── STEP 1: PHOTO UPLOAD ── */
+    const uploadPreview   = document.getElementById('uploadPreview');
+    const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+    const step1Next       = document.getElementById('step1Next');
+    const uploadZone      = document.getElementById('uploadZone');
+    const uploadBtns      = document.getElementById('uploadBtns');
+    const photoEditBtns   = document.getElementById('photoEditBtns');
+
+    function handleFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      photoFile = file;
+      const url = URL.createObjectURL(file);
+      uploadPreview.src = url;
+      uploadPreview.classList.add('visible');
+      uploadPlaceholder.style.display = 'none';
+      // Swap button sets
+      uploadBtns.style.display = 'none';
+      photoEditBtns.style.display = 'flex';
+      step1Next.style.opacity = '1';
+      step1Next.style.pointerEvents = 'auto';
+      const img = new Image();
+      img.onload = () => { photoHash = hashImage(img); };
+      img.src = url;
+    }
+
+    function clearPhoto() {
+      photoFile = null; photoHash = null;
+      uploadPreview.src = '';
+      uploadPreview.classList.remove('visible');
+      uploadPlaceholder.style.display = '';
+      uploadBtns.style.display = 'flex';
+      photoEditBtns.style.display = 'none';
+      step1Next.style.opacity = '0.4';
+      step1Next.style.pointerEvents = 'none';
+    }
+
+    // Wire all three file inputs to the same handler
+    ['photoCameraInput','photoGalleryInput','photoChangeInput'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', e => handleFile(e.target.files[0]));
+    });
+
+    document.getElementById('removePhotoBtn').addEventListener('click', clearPhoto);
+
+    // Drag & drop on the zone (desktop)
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.classList.remove('drag-over');
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    step1Next.addEventListener('click', () => { if (photoFile) goToStep(2); });
+
+    /* ── STEP 2: GENDER ── */
+    const step2Next = document.getElementById('step2Next');
+    document.querySelectorAll('.gender-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.gender-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedGender = card.dataset.gender;
+        step2Next.style.opacity = '1';
+        step2Next.style.pointerEvents = 'auto';
+      });
+    });
+
+    step2Next.addEventListener('click', () => { if (selectedGender) goToStep(3); });
+
+    /* ── STEP 3: REVEAL ── */
+    function runReveal() {
+      document.getElementById('generatingState').style.display = 'flex';
+      document.getElementById('revealWrapper').style.display = 'none';
+
+      setTimeout(() => {
+        const result = generateName(photoHash || Date.now(), selectedGender, nameSalt);
+        renderCard(result);
+        document.getElementById('generatingState').style.display = 'none';
+        document.getElementById('revealWrapper').style.display = 'flex';
+        incrementCount(); // count every card generated
+      }, 1800);
+    }
+
+    let selectedVariant = 'dark';
+
+    function applyVariant(v) {
+      const card = document.getElementById('idCard');
+      card.className = `fc-sport fc-sport-${v}`;
+      card.style.width = '300px';
+      card.style.borderRadius = '20px';
+      document.querySelectorAll('.vpick').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+    }
+
+    function renderCard(result) {
+      // Photo
+      const cardPhotoWrap  = document.getElementById('cardPhotoWrap');
+      const cardPlaceholder = document.getElementById('cardPlaceholder');
+      if (photoFile) {
+        const url = URL.createObjectURL(photoFile);
+        cardPhotoWrap.style.backgroundImage    = `url("${url}")`;
+        cardPhotoWrap.style.backgroundSize     = 'cover';
+        cardPhotoWrap.style.backgroundPosition = 'center';
+        cardPhotoWrap.style.backgroundRepeat   = 'no-repeat';
+        cardPlaceholder.style.display = 'none';
+      }
+      // Name — sport card structure
+      document.getElementById('cardFirstName').textContent = result.firstName;
+      document.getElementById('cardSurnames').textContent  = result.ap + ' ' + result.am;
+      document.getElementById('cardApodo').textContent     = '"' + result.apodo.replace(/[🎭🐂🐱😈🐍🐺🐯🦊🦅💪⚡🎓⚓🪄⚔️💥🤠🦴😎🏆🌹👻⛈️🌋👑🔮🌟🐯💨🦁🌺🎓⚓🪄⚔️🏆🎓⚓🌹⛈️🌋🌙👊💪🌹🌺👸💼]/gu, '').trim() + '"';
+
+      // Re-trigger animation
+      ['cardFirstName','cardSurnames','cardApodo'].forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.remove('name-animate');
+        void el.offsetWidth;
+        el.classList.add('name-animate');
+      });
+
+      // Show variant picker
+      document.getElementById('variantPicker').style.display = 'flex';
+      applyVariant(selectedVariant);
+    }
+
+    // Variant switcher
+    document.querySelectorAll('.vpick').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedVariant = btn.dataset.v;
+        applyVariant(selectedVariant);
+      });
+    });
+
+    /* ── RETRY ── */
+    document.getElementById('btnRetry').addEventListener('click', () => {
+      nameSalt++;
+      document.getElementById('generatingState').style.display = 'flex';
+      document.getElementById('revealWrapper').style.display = 'none';
+      setTimeout(() => {
+        const result = generateName(photoHash || Date.now(), selectedGender, nameSalt);
+        renderCard(result);
+        document.getElementById('generatingState').style.display = 'none';
+        document.getElementById('revealWrapper').style.display = 'flex';
+      }, 900);
+    });
+
+    /* ── DOWNLOAD & SHARE (html2canvas) ── */
+
+    async function captureCard(scale = 3) {
+      const card = document.getElementById('idCard');
+      return html2canvas(card, {
+        scale,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false,
+      });
+    }
+
+    async function shareOrDownload(canvas, filename) {
+      return new Promise(resolve => {
+        canvas.toBlob(async blob => {
+          const file = new File([blob], filename, { type: 'image/png' });
+          // Try native share sheet first (mobile)
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                files: [file],
+                title: 'My Mexican Name 🇲🇽',
+                text: 'Africa backs México 🌍 I got my Mexican name! Sorry Bafana 😂 https://pick-a-side.netlify.app',
+              });
+              resolve('shared');
+              return;
+            } catch (e) {
+              if (e.name !== 'AbortError') {
+                // Share failed — fall through to download
+              } else {
+                resolve('cancelled');
+                return;
+              }
+            }
+          }
+          // Fallback: direct download
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = filename; a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          resolve('downloaded');
+        }, 'image/png');
+      });
+    }
+
+    async function buildStoryCanvas(cardCanvas, bgColor) {
+      const W = 1080, H = 1920;
+      const out = document.createElement('canvas');
+      out.width = W; out.height = H;
+      const ctx = out.getContext('2d');
+
+      // Background
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle vignette
+      const vg = ctx.createRadialGradient(W/2, H/2, H*0.3, W/2, H/2, H*0.85);
+      vg.addColorStop(0, 'transparent');
+      vg.addColorStop(1, 'rgba(0,0,0,0.35)');
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Card fills 92% of story width
+      const maxW = W * 0.92;
+      const scale = Math.min(maxW / cardCanvas.width, (H * 0.82) / cardCanvas.height);
+      const dw = cardCanvas.width * scale;
+      const dh = cardCanvas.height * scale;
+      const dx = (W - dw) / 2;
+      const dy = (H - dh) / 2 - 40; // slightly above center
+
+      // Card shadow
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = 80;
+      ctx.shadowOffsetY = 30;
+      ctx.drawImage(cardCanvas, dx, dy, dw, dh);
+      ctx.shadowColor = 'transparent';
+
+      // Watermark
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.font = '500 28px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('pick-a-side.netlify.app', W/2, H - 60);
+
+      return out;
+    }
+
+    /* ── DOWNLOAD & SHARE — both open bg picker, different actions ── */
+    let sharePickerMode = 'download'; // 'download' | 'share'
+
+    // Download: open picker in download mode
+    document.getElementById('btnDownload').addEventListener('click', () => {
+      sharePickerMode = 'download';
+      const btn = document.getElementById('btnGenerateShare');
+      btn.textContent = 'Download 🖼️';
+      btn.dataset.action = 'download';
+      document.getElementById('shareModal').classList.add('open');
+    });
+
+    // Share: open picker in share mode
+    document.getElementById('btnShare').addEventListener('click', () => {
+      sharePickerMode = 'share';
+      const btn = document.getElementById('btnGenerateShare');
+      btn.textContent = 'Generate & Share 🚀';
+      btn.dataset.action = 'share';
+      document.getElementById('shareModal').classList.add('open');
+    });
+
+    document.getElementById('shareModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('shareModal'))
+        document.getElementById('shareModal').classList.remove('open');
+    });
+
+    let selectedBg = '#0a0a0a';
+    document.querySelectorAll('.bg-swatch:not(.custom-swatch)').forEach(sw => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('selected'));
+        sw.classList.add('selected');
+        selectedBg = sw.dataset.color;
+      });
+    });
+
+    document.getElementById('customColor').addEventListener('input', e => {
+      selectedBg = e.target.value;
+      document.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('selected'));
+      e.target.closest('.custom-swatch').classList.add('selected');
+      e.target.closest('.custom-swatch').style.background = selectedBg;
+    });
+
+    document.getElementById('btnGenerateShare').addEventListener('click', async () => {
+      document.getElementById('shareModal').classList.remove('open');
+      const btn = document.getElementById('btnGenerateShare');
+      const originalText = btn.textContent;
+      btn.textContent = 'Generating…';
+      btn.disabled = true;
+      try {
+        const cardCanvas = await captureCard(4);
+        const storyCanvas = await buildStoryCanvas(cardCanvas, selectedBg);
+        if (sharePickerMode === 'share') {
+          // Try native share sheet, fallback to download
+          await shareOrDownload(storyCanvas, 'my-mexican-name.png');
+        } else {
+          // Download only — no share sheet
+          storyCanvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'my-mexican-name.png'; a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          }, 'image/png');
+        }
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+
+    /* Card strip auto-animates — no JS scroll handler needed */
+
+    /* ── CARDS GENERATED COUNTER (Firebase) ── */
+    const counterEl = document.getElementById('defector-count');
+    const FB_URL = 'https://pick-a-side-80579-default-rtdb.firebaseio.com/counter.json';
+
+    function animateCountTo(target) {
+      const duration = 1800;
+      const start = performance.now();
+      const from = parseInt(counterEl.textContent.replace(/,/g, '')) || 0;
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(from + (target - from) * ease);
+        counterEl.textContent = value.toLocaleString();
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    async function loadCount() {
+      try {
+        const res = await fetch(FB_URL);
+        const count = await res.json();
+        animateCountTo(count || 0);
+      } catch (e) { counterEl.textContent = '—'; }
+    }
+
+    async function incrementCount() {
+      try {
+        const res = await fetch(FB_URL);
+        const current = (await res.json()) || 0;
+        const next = current + 1;
+        await fetch(FB_URL, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) });
+        animateCountTo(next);
+      } catch (e) { /* silent fail */ }
+    }
+
+    // Increment on CTA button click
+    document.querySelector('.hero-cta .btn-primary').addEventListener('click', () => incrementCount());
+
+    // Load count when stats strip is visible
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { loadCount(); statsObserver.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    statsObserver.observe(counterEl);
+  </script>
+
+</body>
+</html>

@@ -3269,6 +3269,7 @@
 
     document.getElementById('btnGenerateShare').addEventListener('click', async () => {
       document.getElementById('shareModal').classList.remove('open');
+      await new Promise(r => setTimeout(r, 320)); // wait for modal fade + backdrop-filter to clear
       const btn = document.getElementById('btnGenerateShare');
       const originalText = btn.textContent;
       btn.textContent = 'Generating…';
